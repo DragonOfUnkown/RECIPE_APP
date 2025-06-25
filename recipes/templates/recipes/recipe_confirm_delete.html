@@ -1,0 +1,8 @@
+{% extends "recipes/base.html" %}
+{% block content %}
+<form method="post">{% csrf_token %}
+  <p>Are you sure you want to delete “{{ object }}”?</p>
+  <button class="btn btn-danger">Yes, delete</button>
+  <a href="{% url 'recipe_list' %}" class="btn btn-secondary">Cancel</a>
+</form>
+{% endblock %}

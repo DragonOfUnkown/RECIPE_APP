@@ -1,0 +1,54 @@
+{% extends "recipes/base.html" %}
+{% load widget_tweaks %}
+
+{% block title %}Recipe Form{% endblock %}
+
+{% block content %}
+<div class="card border-0 shadow-sm">
+  <div class="card-body">
+    <form method="post" class="row g-4">
+      {% csrf_token %}
+
+      <!-- left column -->
+      <div class="col-md-6">
+        <div class="form-floating mb-3">
+          {{ form.name|add_class:'form-control' }}
+          <label>Name</label>
+        </div>
+
+        <div class="form-floating mb-3">
+          {{ form.ingredients|add_class:'form-control' }}
+          <label>Ingredients (one per line)</label>
+        </div>
+
+        <div class="form-floating mb-3">
+          {{ form.instructions|add_class:'form-control' }}
+          <label>Instructions</label>
+        </div>
+      </div>
+
+      <!-- right column -->
+      <div class="col-md-6">
+        <div class="form-floating mb-3">
+          {{ form.cuisine_type|add_class:'form-control' }}
+          <label>Cuisine type</label>
+        </div>
+
+        <div class="form-floating mb-3">
+          {{ form.prep_time_min|add_class:'form-control' }}
+          <label>Prep time (min)</label>
+        </div>
+
+        <div class="form-floating mb-4">
+          {{ form.status|add_class:'form-select' }}
+          <label>Status</label>
+        </div>
+
+        <div class="d-grid">
+          <button class="btn btn-primary btn-lg">💾 Save</button>
+        </div>
+      </div>
+    </form>
+  </div>
+</div>
+{% endblock %}

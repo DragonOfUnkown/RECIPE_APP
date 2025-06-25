@@ -1,0 +1,68 @@
+{% extends "recipes/base.html" %}
+{% load widget_tweaks %}
+
+{% block title %}All Recipes{% endblock %}
+
+{% block content %}
+<div class="card border-0 shadow-sm">
+  <div class="card-body">
+
+    <!-- search / filter bar -->
+    <form method="get" class="row g-2 align-items-end">
+      <div class="col-md-5">
+        <label class="form-label fw-semibold mb-0">Search</label>
+        <input name="q" value="{{ request.GET.q }}" class="form-control" placeholder="Name, ingredient, cuisine…" />
+      </div>
+
+      <div class="col-md-3">
+        <label class="form-label fw-semibold mb-0">Status</label>
+        <select name="status" class="form-select">
+          <option value="">Any status</option>
+          {% for key,label in recipes.model.STATUS_CHOICES %}
+            <option value="{{ key }}" {% if request.GET.status == key %}selected{% endif %}>{{ label }}</option>
+          {% endfor %}
+        </select>
+      </div>
+
+      <div class="col-md-2 d-grid">
+        <button class="btn btn-primary">🔎 Filter</button>
+      </div>
+
+      <div class="col-md-2 d-grid">
+        <a href="{% url 'recipe_add' %}" class="btn btn-success">➕ Add Recipe</a>
+      </div>
+    </form>
+
+    <hr class="my-4">
+
+    <!-- results table -->
+    <div class="table-responsive">
+      <table class="table table-hover align-middle">
+        <thead class="table-light">
+          <tr><th>Name</th><th>Status</th><th class="text-end">Actions</th></tr>
+        </thead>
+        <tbody>
+        {% for r in recipes %}
+          <tr>
+            <td class="fw-semibold">{{ r.name }}</td>
+            <td>
+              <span class="badge {% if r.status == 'favorite' %}bg-success
+                                {% elif r.status == 'to_try' %}bg-warning text-dark
+                                {% else %}bg-info text-dark{% endif %}">
+                {{ r.get_status_display }}
+              </span>
+            </td>
+            <td class="text-end">
+              <a href="{% url 'recipe_edit' r.pk %}" class="btn btn-sm btn-outline-secondary">Edit</a>
+              <a href="{% url 'recipe_delete' r.pk %}" class="btn btn-sm btn-outline-danger">Delete</a>
+            </td>
+          </tr>
+        {% empty %}
+          <tr><td colspan="3" class="text-center py-4 text-muted">No recipes found.</td></tr>
+        {% endfor %}
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>
+{% endblock %}
