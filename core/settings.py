@@ -26,11 +26,7 @@ SECRET_KEY = 'django-insecure-!96@lzar*6i+)ja7c#50j@w4lk-*i2*8+6=h4b-w4d5)e6(^a-
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = [
-    "recipe-app-1-wtl2.onrender.com",  # Render URL
-    "localhost",
-    "127.0.0.1",
-]
+ALLOWED_HOSTS = ["*"]          
 
 # Application definition
 
